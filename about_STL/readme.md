@@ -46,4 +46,13 @@ STL : Standard Template Libaray
 2. 迭代器:
 3. 算法
 
-4. 
+4. 仿函数(函数对象)源码剖析
+    - 关系运算类[relational]仿函数[函数对象]
+        - STL内建的“关系运算类仿函数”，支持等于、不等于、大于、大于等于、小于、小于等于六种运算
+        - 每一个都是二元运算
+            - 等于[equality]:                               equal_to<T>
+            - 不等于[inequality]:                           not_equal_to<T>
+            - 大于[greater-than]:                           greater<T>
+            - 大于或等于[greater-than-or-equal]:            greater_equal<T>
+            - 小于[ess-than]：                              less<T>
+            - 小于或等于[less-than-or-equal]：               less_equal<T>
