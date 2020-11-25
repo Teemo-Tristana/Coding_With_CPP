@@ -7,6 +7,7 @@
 #define MTTINYSTL_ALLOCATOR_H_
 
 #include "util.h"
+#include "construct.h"
 
 namespace mystl
 {
@@ -34,8 +35,8 @@ namespace mystl
         static void construct(T *ptr, const T &value);
         static void construct(T *ptr, T &&value);
 
-        template <calss... Args>
-        static void construct(T *ptr, Arg &&... args);
+        template <class... Args>
+        static void construct(T *ptr, Args &&... args);
 
         static void destroy(T *ptr);
         static void destroy(T *first, T *last);
@@ -50,30 +51,62 @@ namespace mystl
     template <class T>
     T *allocator<T>::allocate(size_type n)
     {
-        if（0 == n)
+        if (0 == n)
             return nullptr;
         return static_cast<T *>(::operator new(n * sizeof(T)));
     }
 
-    template<class T>
-    void allocator<T>::deallocate(T* ptr)
+    template <class T>
+    void allocator<T>::deallocate(T *ptr)
     {
-        if (nullptr == ptr)
-            return ;
-        ::operator delete(ptr);
-    }
-
-    template<class T>
-    void allocator<T>::deallocate(T* ptr, size_type n){
         if (nullptr == ptr)
             return;
         ::operator delete(ptr);
     }
-    
-    template<class T>
-    void allocator<T>::construct(T*ptr)
+
+    template <class T>
+    void allocator<T>::deallocate(T *ptr, size_type n)
     {
-        mystl::
+        if (nullptr == ptr)
+            return;
+        ::operator delete(ptr);
+    }
+
+    template <class T>
+    void allocator<T>::construct(T *ptr)
+    {
+        mystl::contruct(ptr);
+    }
+
+    template <class T>
+    void allocator<T>::construct(T *ptr, const T &value)
+    {
+        mystl::construct(ptr, value);
+    }
+
+    template <class T>
+    void allocator<T>::construct(T *ptr, T &&value)
+    {
+        mystl::construct(ptr, mystl::move(value);)
+    }
+
+    template <class T>
+    template <class... Args>
+    void allocator<T>::construct(T *ptr, Args &&... args)
+    {
+        mystl::construct(ptr, mystl::forward<Args>(args)...);
+    }
+
+    template <class T>
+    void allocator<T>::destroy(T *ptr)
+    {
+        mystl::destory(ptr);
+    }
+
+    template <class T>
+    void allocator<T>::destroy(T *first, T *last)
+    {
+        mystl::destory(first, last);
     }
 
 } // namespace mystl
