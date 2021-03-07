@@ -40,6 +40,7 @@ void end_connection(connection *p)
 }
 
 void test(int* t);
+
 void f(destination &d)
 {
     // 获取一个连接
